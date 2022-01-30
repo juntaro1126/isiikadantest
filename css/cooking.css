@@ -1,0 +1,662 @@
+@charset "UTF-8";
+
+* {
+box-sizing:border-box;
+}
+/*------------------------------------------------------------------------------
+共通部分
+------------------------------------------------------------------------------*/
+body {
+overflow-x: hidden;
+font-family: “Times New Roman”,
+“游明朝”, “Yu Minho”, “游明朝体”, “YuMinho”, “ヒラギノ明朝 Pro W3”, 
+“Hiragino Minho Pro”, “HiraMinProN-W3”, “HGS明朝E”, “ＭＳ Ｐ明朝”,
+“MS PMincho”, Noto Serif JP ;
+}
+.display_flex {
+display: flex;
+}  
+
+
+/*------------------------------------------------------------------------------
+固定ヘッダー
+------------------------------------------------------------------------------*/
+header {
+height: 80px;
+}
+.header_all {
+background:rgba(253, 253, 253, 0.6);
+max-width: 2500px;
+width: 100%;
+}
+.header_all_wrap {
+max-width: 1920px;
+width: 100%;
+margin: 0 auto;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 20px;
+}
+.header_left_center {
+  display: flex;
+  align-items: center;
+}
+.header_left:hover {
+  opacity: 0.6;
+}
+.header_left img {
+  margin-right: 4vw;
+  width: 200px;
+}
+.header_center {
+  text-decoration: none;
+  color: #000000;
+  margin-right: 10px;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+.header_center:hover {
+  opacity: 0.8;
+}
+.header_reserve_Modal_form {
+  background: #978F10 0% 0% no-repeat padding-box;
+  width: 170px;
+  text-align: center;
+  line-height: 54px;
+
+  font-size: 16px;
+  font-weight: 800;
+}
+.header_reserve_Modal_form:hover {
+  opacity: 0.4;
+}
+/*モーダルの開くボタン */
+.header_right {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+
+.header_right img {
+  margin-right: 10px;
+  vertical-align: -3px; /*画像の細かい位置調整*/
+}
+/*モーダルの開くボタン終了*/
+
+
+/*------------------------------------------------------------------------------
+ハンバーガーメニュー
+------------------------------------------------------------------------------*/
+
+#hamburger {
+  display: none;
+}
+.btn-gNav {
+  margin-top: 15px;
+}
+
+
+
+/*------------------------------------------------------------------------------
+予約モーダルフォーム
+
+送信フォーム参考サイト     https://shogo-log.com/submit-disabled/
+
+モーダル参考サイト         https://webdesignday.jp/inspiration/technique/css/4680/
+                          https://dezanari.com/jquery-modal/
+
+一番参考になった
+背景をクリックしたときモーダルが閉じるjQueryコードがない
+https://qiita.com/7note/items/a93761dd16fe4cb9911a
+
+
+
+日付選択flatpickr参考サイト
+https://www.google.com/search?q=flatpickr+%E4%BD%BF%E3%81%84%E6%96%B9&rlz=1C1QABZ_jaJP910JP910&oq=flatpickr&aqs=chrome.1.69i57j0i512l8j0i10i512.3499j0j15&sourceid=chrome&ie=UTF-8
+
+flatpickr公式(英語)
+https://flatpickr.js.org/
+
+flatpickrドキュメント翻訳
+https://tr.you84815.space/flatpickr/index.html
+------------------------------------------------------------------------------*/
+
+/* モーダルウィンドウ */
+.modal {
+  background: rgba(0,0,0,0.5);       /* 半透明の背景を設置 */
+  position: fixed;                     /* 表示位置に固定 */
+  width: 100%;                         /* 横幅を幅いっぱい */
+  height: 100%;                        /* 高さを縦幅いっぱい */
+  top: 0;                              /* 上から0pxの位置 */
+  left: 0;                             /* 左から0pxの位置 */
+  display: none;                       /* 最初は非表示にする */
+  box-sizing: border-box;              /* 余白や幅の計算を簡単にする */
+  margin: 0 auto;                      /* 左右中央に配置*/
+  padding: 50px;                       /* 上下左右に適度な余白 */
+  z-index: 99;
+}
+
+/* モーダルの中の要素 */
+.modal .box {
+  background: #fff;                  /* 背景色を白に指定 */
+  padding: 20px;                       /* 適度な余白を指定 */
+  max-height: calc(100vh - 100px);     /* モーダルウィンドウが画面の縦（+余白）より大きくなった際の対処のため指定 */
+  overflow-y: scroll;                  /* max-heightを超えたらスクロールになるよう指定 */
+  box-sizing: border-box;              /* 余白や幅の計算を簡単にする */
+  
+  margin: 0 auto;                      /*中央に寄せる*/
+  max-width: 550px;                   /*幅を指定*/
+                    
+}
+
+/*フォームの全体*/
+.form-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  padding: 0 2%;
+}
+/*モーダル 宿泊予約*/
+.modal_form {
+  width: 80px;
+  margin: 29px auto 0;
+  font-size: 20px;
+}
+/*名前 メールアドレス ご宿泊プラン 日時選択 文字サイズ*/
+.modal_form2 {
+  font-size: 16px;
+}
+
+.modal_form3 {
+  border: 1px solid #E7E7E7;
+  width: 429px;
+  margin: 20px auto;
+}
+.modal_form4 {
+  font-size: 16px;
+}
+.flatpickr {
+  border: 1px solid #E7E7E7;
+  width: 429px;
+  margin: 20px auto;
+}
+.modal_form5 {
+  border: 1px solid #707070;
+  padding: 13px 67px;
+  width: 200px;
+  margin: 50px auto 0;
+}
+.modal_form5:hover {
+  cursor: pointer	;
+  opacity: 0.6;
+}
+/*閉じるボタン*/
+.close {
+ text-align: right;  
+}
+.close:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+/*------------------------------------------------------------------------------
+ヘッダーメイン画像
+------------------------------------------------------------------------------*/
+.home_content_first_impression {/*親要素*/
+display: table;                             /*テーブル要素に変更*/
+height: 500px;
+width: 100%;
+background-image: url(../img/cooking-header.png);
+/*background-size: contain;*/
+background-size: cover;
+background-position: center center;    /*画像の中心が常に画面の中心に来る*/
+background-repeat: no-repeat;
+margin-bottom: 36px;
+}
+.home_content_first_impression h1 {/*子要素*/
+display: table-cell;                         /*テーブルセル要素に変更*/
+vertical-align: middle;                      /*上下中央*/
+font-weight: 800;
+font-size: 34px;
+color: #FFFFFF;
+text-align: center;
+}
+
+/*------------------------------------------------------------------------------
+パンくずリスト
+
+参考サイト
+https://saruwakakun.com/html-css/basic/breadcrumb
+------------------------------------------------------------------------------*/
+.breadcrumb {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  }
+  .breadcrumb li {
+  display: inline;/*横に並ぶように*/
+  list-style: none;
+  font-weight: medium;
+  line-height: 32px;
+  }
+  .breadcrumb li::after {/* >を表示*/
+  content: '>';
+  }
+  .breadcrumb li:last-child:after {
+  content: '';
+  }
+  .breadcrumb li a {
+  text-decoration: none;
+  color: #000000;
+  }
+  .breadcrumb li a:hover {
+  text-decoration: underline;
+  }
+  
+  /*------------------------------------------------------------------------------
+  メイン
+  ------------------------------------------------------------------------------*/
+  .home_content_all_wrap {
+  padding: 0 4%;
+  }
+  .home_content_all {
+  max-width: 1174px;
+  width: 100%;
+  margin: 0 auto;
+  height: auto ;    
+  }
+  .home_content_text {
+  text-align: center;
+  font-weight: medium;
+  font-size: 1rem;
+  line-height: 2rem;
+  margin-top: 98px;
+  margin-bottom: 135px;
+  }
+  
+  /*------------------------------------------------------------------------------
+  温泉付き客室 一般客室
+  ------------------------------------------------------------------------------*/
+  .home_content_room {
+  max-width: 1174px;
+  width: 100%;
+  margin: 0 auto 141px;
+  }
+  .home_content_room_text {
+  max-width: 813px;
+  width: 100%;
+  max-height: 381px;
+  height: 381px;
+  margin: 0 0 0 auto;
+  background-image: url(../img/bg.jpg);         /*和の背景*/
+  
+  position: relative;
+  }
+  .home_content_room_text img {
+  max-width: 525px;
+  width: 100%;
+  max-height: 300px;
+  height: 100%;
+  
+  position: absolute;
+  top: -58px;
+  left: -361px;
+  }
+  .home_content_room_text_wrap {
+  padding-left: 244px;
+  }
+  .home_content_room_text_top {
+  padding-top: 60px;
+  font-weight: medium;
+  font-size: 24px;
+  line-height: 32px;
+  }
+  .home_content_room_text_center {
+  margin-top: 52px;
+  font-weight: medium;
+  font-size: 1rem;
+  line-height: 32px;
+  }
+  .home_content_room_text_bottom {
+  margin-top: 52px;
+  font-weight: medium;
+  font-size: 14px;
+  line-height: 21px;
+  }
+  
+  /*------------------------------------------------------------------------------
+  園庭付き客室
+  ------------------------------------------------------------------------------*/
+  .home_content_room_text_alternative {
+  max-width: 813px;
+  width: 100%;
+  max-height: 381px;
+  height: 381px;
+  margin: 0 auto 0 0;
+  background-image: url(../img/bg.jpg);         /*和の背景*/
+  
+  position: relative;
+  }
+  .home_content_room_text_alternative img {
+  max-width: 525px;
+  width: 100%;
+  max-height: 300px;
+  height: 100%;
+  
+  position: absolute;
+  top: -58px;
+  right: -361px;
+  }
+  .home_content_room_text_wrap_alternative {
+  padding-left: 60px;
+  }
+  
+  
+  @media screen and (max-width: 1200px) {
+  
+  .home_content_text {
+  margin-bottom: 30px;
+  }
+  .home_content_room {
+  margin-bottom: 20px;
+  }
+  .home_content_room_text {
+  background-image: url(../img/menu01.jpg);
+  background-position: center center;
+  background-size: cover;
+  max-width: 525px;
+  margin: 0 auto;
+  color: #FFFFFF;
+  }
+  /*背景を暗くする*/
+  .home_content_room_text::before {
+  content: '';
+  background-color: rgba(0,0,0,.7);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  }
+  /*文字をグローする*/
+  .home_content_room_text_top {
+  position: absolute;
+  color:#FFFFFF;
+  text-shadow: 2px 2px 10px #CCCCCC ,
+  -2px 2px 10px #CCCCCC ,
+  2px -2px 10px #CCCCCC ,
+  -2px -2px 10px #CCCCCC;
+  }
+  .home_content_room_text_center {
+  position: absolute;
+  color:#FFFFFF;
+  top: 52px;
+  text-shadow: 2px 2px 10px #CCCCCC ,
+  -2px 2px 10px #CCCCCC ,
+  2px -2px 10px #CCCCCC ,
+  -2px -2px 10px #CCCCCC;
+  }
+  .home_content_room_text_bottom {
+  position: absolute;
+  color:#FFFFFF;
+  padding-top: 30px;
+  top: 152px;
+  text-shadow: 2px 2px 10px #CCCCCC ,
+  -2px 2px 10px #CCCCCC ,
+  2px -2px 10px #CCCCCC ,
+  -2px -2px 10px #CCCCCC;
+  }
+  .home_content_room_text img {
+  display: none;
+  position: static;
+  }
+  .home_content_room_text_wrap {
+  padding-left: 10px;/*画像と文字の位置を合わせる*/
+  }
+  .home_content_room_text_top {
+  padding-top: 40px;
+  }
+  
+  
+  
+  .home_content_room_text_alternative {
+  background-image: url(../img/menu02.jpg);
+  background-position: center center;
+  background-size: cover;
+  max-width: 525px;
+  margin: 0 auto;
+  color: #FFFFFF;
+  }
+  /*背景を暗くする*/
+  .home_content_room_text_alternative::before {
+  content: '';
+  background-color: rgba(0,0,0,.7);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  }
+  .home_content_room_text_alternative img {
+  display: none;
+  position: static;
+  }
+  .home_content_room_text_wrap_alternative {
+  padding-left: 10px;/*画像と文字の位置を合わせる*/
+  }
+  
+  
+  
+  .home_content_room_text_general {
+  background-image: url(../img/menu03.jpg);
+  background-position: center center;
+  background-size: cover;
+  max-width: 525px;
+  margin: 0 auto;
+  color: #FFFFFF;
+  }
+  
+  
+  
+  }
+
+
+
+/*------------------------------------------------------------------------------
+メインフッター
+------------------------------------------------------------------------------*/
+.footer {
+  background-image: url(../img/bg3.jpg);
+  background-size: cover;
+  height: auto;
+  }
+  .footer_all {
+  max-width: 1920px;
+  width: 100%;
+  margin: 0 auto;
+  }
+  .footer_title_list {
+  padding-top: 64px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  font-weight: medium;
+  font-size: 18px;
+  max-width: 122px;
+  margin: 0 auto 96px;
+  }
+  .footer_title_link {
+  text-decoration: none;
+  color: #000000;
+  letter-spacing: 0.5em;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+  }
+  .footer_title_link:hover {
+  opacity: 0.6;
+  }
+  .footer_all_number {
+  text-align: center;
+  font-weight: medium;
+  font-size: 16px;
+  }
+  .footer_img {
+  margin-bottom: 72px;
+  }
+  .footer_img:hover {
+  opacity: 0.6;
+  }
+  .footer_wrap_post_code_prefectures {
+  display: flex;
+  justify-content: space-between;
+  max-width: 360px;
+  margin: 0 auto;
+  font-weight: medium;
+  font-size: 16px;
+  padding-bottom: 23px;
+  }
+  .footer_prefectures {
+  letter-spacing: 2.88px;
+  }
+  .footer_wrap_phone_number {
+  display: flex;
+  justify-content: space-between;
+  max-width: 320px;
+  margin: 0 auto;
+  font-weight: medium;
+  font-size: 16px;
+  padding-bottom: 61px;
+  }
+  
+  
+  /*------------------------------------------------------------------------------
+  フッター
+  ------------------------------------------------------------------------------*/
+  #footer {
+  background-color: #000000;
+  font-weight: medium;
+  font-size: 12px;
+  line-height: 60px;
+  color: #FFFFFF;
+  text-align: center;
+  }
+/*------------------------------------------------------------------------------
+SP (max-width: 1024px) タブレット用
+------------------------------------------------------------------------------*/
+@media screen and (max-width: 1024px) {
+
+.header_right {
+  display: none;
+}
+
+/*--ハンバーガーメニュー--*/
+#hamburger {
+  display: block;
+}
+#hamburger .btn-gNav{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 24px;
+  z-index: 3;
+  box-sizing: border-box;
+  cursor: pointer;
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+
+#hamburger .btn-gNav span{
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  background: #666;
+  border-radius: 10px;
+  -webkit-transition: all 400ms;
+  transition: all 400ms;
+}
+#hamburger .btn-gNav span:nth-child(1) {
+  top:0;
+}
+#hamburger .btn-gNav span:nth-child(2) {
+  top:10px;
+}
+#hamburger .btn-gNav span:nth-child(3) {
+  top:20px;
+}
+
+#gNav{
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background: #444;
+  font-size: 16px;
+  box-sizing: border-box;
+  z-index: 2;
+  padding-top: 50px;
+  transition: .3s;
+}
+#gNav.open{
+  right: 0px;
+}
+#gNav .gNav-menu{
+  width: 100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  /*justify-content: center;*/
+}
+#gNav .gNav-menu li{
+  display: block;
+  padding : 20px 30px;
+}
+#gNav .gNav-menu li a{
+  color: #ddd;
+  text-decoration: none;
+}
+
+
+@media screen and (min-width: 1024px){
+  .btn-gNav{
+    display: none;
+  }
+  #gNav{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 50px;
+  }
+  #gNav .gNav-menu{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding-left: 50px;
+  }
+  #gNav .gNav-menu li{
+    padding-top: 5px;
+  }
+}
+
+
+}
+
+/*------------------------------------------------------------------------------
+SP (max-width: 699px) スマートフォン用
+------------------------------------------------------------------------------*/
+@media screen and (max-width: 699px) {
+
+  .headercenter {
+    display: none;
+  }
+.footer_wrap_post_code_prefectures {
+flex-direction: column;
+}
+
+}
+
